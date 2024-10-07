@@ -21,7 +21,7 @@ class ComplexNumber : public Number
 {
 public:
 	ComplexNumber(int rNum, int iNum);
-	int getImaginary();
+	int getImaginary() const;
 	ComplexNumber operator+(ComplexNumber temp);
 	ComplexNumber operator-(ComplexNumber temp);
 	void display() const;
@@ -67,7 +67,7 @@ ComplexNumber::ComplexNumber(int rNum, int iNum)
 }
 
 //Access the imaginary number
-int ComplexNumber::getImaginary()
+int ComplexNumber::getImaginary() const
 {
 	return imaginary;
 }
