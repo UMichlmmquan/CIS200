@@ -48,19 +48,25 @@ public:
         Node* newNode = new Node(value);
         newNode->next = head;
         head = newNode;
-        delete newNode;
     }
 
     //Insert a node at the end of the list
     void insertLastNode(int value)
     {
         Node* newNode = new Node(value);
-        Node* curr = head;
-        while (curr->next != nullptr)
+        if (head == nullptr)
         {
-            curr = curr->next;
+            head = newNode;
         }
-        curr->next = newNode;
+        else
+        {
+            Node* curr = head;
+            while (curr->next != nullptr)
+            {
+                curr = curr->next;
+            }
+            curr->next = newNode;
+        }
     }
 
     //Insert a node at a specific positon
@@ -74,7 +80,7 @@ public:
         {
             Node* newNode = new Node(value);
             Node* curr = head;
-            int count = 0;
+            int count = 1;
             while (curr->next != nullptr && count < pos - 1)
             {
                 curr = curr->next;
@@ -85,15 +91,74 @@ public:
                 newNode->next = curr->next;
                 curr->next = newNode;
             }
-            delete newNode;
         }
     }
     //Delete the first node in the list
-    void deleteNode() 
+    void deleteFirstNode() 
     {
-        Node* cur = head;
+        Node* curr = head;
         head = head->next;
-        delete cur;
+        delete curr;
+    }
+
+    //Delete the last node in the list
+    void deleteLastNode()
+    {
+        //Empty list
+        if (head == nullptr)
+        {
+            return;
+        }
+        //Only 1 node
+        if (head->next == nullptr)
+        {
+            delete head;
+            head = nullptr;
+            return;
+        }
+        else 
+        {
+            Node* curr = head;
+            //Find second last node
+            while (curr->next->next != nullptr)
+            {
+                curr = curr->next;
+            }
+            //Set second last node to nullptr
+            delete curr->next;
+            curr->next = nullptr;
+        }
+      
+    }
+
+    //Delete node by value
+    void deleteByValue(int value)
+    {
+        //Empty list
+        if (head == nullptr)
+        {
+            return;
+        }
+        //The node to delete is head
+        if (head->data == value)
+        {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+        Node* curr = head;
+        while (curr->next != nullptr)
+        {
+            if (curr->next->data == value)
+            {
+                Node* temp = curr->next;
+                curr->next = curr->next->next;
+                delete temp;
+                return;
+            }
+            curr = curr->next;
+        }
     }
 
     // Display the linked list
@@ -132,13 +197,16 @@ int main() {
     myList.insertFirstNode(3);
     myList.insertLastNode(5);
     myList.insertLastNode(7);
-    myList.insertAt(2, 3);
+    myList.insertAt(10, 3);
     myList.traverseList();
 
-    myList.deleteNode();
+    myList.deleteFirstNode();
     myList.traverseList();
 
-    myList.deleteNode();
+    myList.deleteLastNode();
+    myList.traverseList();
+
+    myList.deleteByValue(2);
     myList.traverseList();
 
     return 0;
