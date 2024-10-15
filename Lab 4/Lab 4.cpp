@@ -139,6 +139,15 @@ public:
         {
             return;
         }
+        //Only 1 node to delete
+        if (head->next == nullptr)
+        {
+            if (head->data == value)
+            {
+                delete head;
+                head == nullptr;
+            }
+        }
         //The node to delete is head
         if (head->data == value)
         {
@@ -161,6 +170,65 @@ public:
         }
     }
 
+    //Retrieve the front node
+    int getFrontNode()
+    {
+        if (head == nullptr)
+            return 0;
+        return head->data;
+    }
+
+    //Retrieve the size of the list
+    int getListSize()
+    {
+        Node* curr = head;
+        int count = 0;
+        while (curr != nullptr)
+        {
+            count++;
+            curr = curr->next;
+        }
+        return count;
+    }
+
+    //Retrieve and delete the smallest value
+    void retrieveAndDeleteSmallest()
+    {
+        if (head == nullptr)
+        {
+            return;  // List is empty
+        }
+
+        // Only one node in the list
+        if (head->next == nullptr)
+        {
+            cout << "Delete smallest value " << head->data << endl;
+            delete head;
+            head = nullptr;
+            return;
+        }
+
+        int smallest = head->data;
+        Node* curr = head;
+        Node* smallestPtr = nullptr;  // Previous node of the smallest node
+
+        // Traverse the list to find the smallest node
+        while (curr != nullptr)
+        {
+            if (curr->data < smallest)
+            {
+                smallest = curr->data;
+                smallestPtr = curr;  // Update the smallest node pointer
+            }
+            curr = curr->next;  // Move to next node
+        }
+
+        cout << "Delete smallest value " << smallest << endl;
+        deleteByValue(smallest);
+    }
+
+
+
     // Display the linked list
     void traverseList() {
         cout << "Linked List: ";
@@ -171,25 +239,8 @@ public:
     }
 };
 
-int main() {
-
-    // Create a linked list as node by node:
-    Node* head = new Node(10);    // First node
-    Node* second = new Node(20);  // Second node
-    Node* third = new Node(30);   // Third node
-
-    // Link the nodes together
-    head->next = second;  // Head points to the second node
-    second->next = third;  // Second node points to the third node
-
-    // Traversing the linked list starting from head
-    Node* cur = head;
-    while (cur != nullptr) {
-        cout << cur->data << " ";  // Output the data in each node
-        cur = cur->next;           // Move to the next node
-    }
-
-
+int main() 
+{
     LinkedList myList;
 
     // Insert some elements into the linked list
@@ -198,6 +249,8 @@ int main() {
     myList.insertLastNode(5);
     myList.insertLastNode(7);
     myList.insertAt(10, 3);
+    myList.insertAt(0, 2);
+    myList.insertAt(15, 3);
     myList.traverseList();
 
     myList.deleteFirstNode();
@@ -206,8 +259,14 @@ int main() {
     myList.deleteLastNode();
     myList.traverseList();
 
-    myList.deleteByValue(2);
+    myList.deleteByValue(10);
     myList.traverseList();
 
+    cout << "Front node is : " << myList.getFrontNode() << endl;
+    cout << "Size of the list is : " << myList.getListSize() << endl;
+    myList.retrieveAndDeleteSmallest();
+    myList.traverseList();
+
+    system("pause");
     return 0;
 }
