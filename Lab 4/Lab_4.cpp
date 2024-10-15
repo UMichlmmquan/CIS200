@@ -54,6 +54,7 @@ public:
     void insertLastNode(int value)
     {
         Node* newNode = new Node(value);
+        //Empty list
         if (head == nullptr)
         {
             head = newNode;
@@ -61,6 +62,7 @@ public:
         else
         {
             Node* curr = head;
+            //Traverse the list
             while (curr->next != nullptr)
             {
                 curr = curr->next;
@@ -72,6 +74,7 @@ public:
     //Insert a node at a specific positon
     void insertAt(int value, int pos)
     {
+        //First node
         if (pos == 0)
         {
             insertFirstNode(value);
@@ -81,13 +84,16 @@ public:
             Node* newNode = new Node(value);
             Node* curr = head;
             int count = 1;
+            //Traverse the list
             while (curr->next != nullptr && count < pos - 1)
             {
                 curr = curr->next;
+                //Update the position
                 count++;
             }
             if (curr != nullptr)
             {
+                //Replace the pointer and the value with the new node
                 newNode->next = curr->next;
                 curr->next = newNode;
             }
@@ -96,6 +102,9 @@ public:
     //Delete the first node in the list
     void deleteFirstNode() 
     {
+        //Empty list
+        if (head == nullptr)
+            return;
         Node* curr = head;
         head = head->next;
         delete curr;
@@ -156,9 +165,12 @@ public:
             delete temp;
             return;
         }
+
         Node* curr = head;
+        //Traverse the list
         while (curr->next != nullptr)
         {
+            //Found the node to delete
             if (curr->next->data == value)
             {
                 Node* temp = curr->next;
@@ -171,11 +183,13 @@ public:
     }
 
     //Retrieve the front node
-    int getFrontNode()
+    void getFrontNode()
     {
+        //Empty list
         if (head == nullptr)
-            return 0;
-        return head->data;
+            cout << "Empty list" << endl;
+        else
+            cout << "Front node is : " << head->data << endl;
     }
 
     //Retrieve the size of the list
@@ -194,9 +208,10 @@ public:
     //Retrieve and delete the smallest value
     void retrieveAndDeleteSmallest()
     {
+        //Empty list
         if (head == nullptr)
         {
-            return;  // List is empty
+            return; 
         }
 
         // Only one node in the list
@@ -208,9 +223,10 @@ public:
             return;
         }
 
-        int smallest = head->data;
-        Node* curr = head;
-        Node* smallestPtr = nullptr;  // Previous node of the smallest node
+        //Declare variables
+        int smallest = head->data; //Smalles node value
+        Node* curr = head; 
+        Node* smallestPtr = nullptr;  //Smallest node pointer
 
         // Traverse the list to find the smallest node
         while (curr != nullptr)
@@ -223,6 +239,7 @@ public:
             curr = curr->next;  // Move to next node
         }
 
+        //Output
         cout << "Delete smallest value " << smallest << endl;
         deleteByValue(smallest);
     }
@@ -244,26 +261,32 @@ int main()
     LinkedList myList;
 
     // Insert some elements into the linked list
-    myList.insertFirstNode(2);
+    /*myList.insertFirstNode(2);
     myList.insertFirstNode(3);
+
     myList.insertLastNode(5);
     myList.insertLastNode(7);
+
     myList.insertAt(10, 3);
-    myList.insertAt(0, 2);
-    myList.insertAt(15, 3);
+    myList.insertAt(0,0);
+    myList.insertAt(15, 3);*/
+
     myList.traverseList();
 
+    //Delete first node
     myList.deleteFirstNode();
     myList.traverseList();
-
+    //Delete last node
     myList.deleteLastNode();
     myList.traverseList();
-
+    //Delete by value
     myList.deleteByValue(10);
     myList.traverseList();
 
-    cout << "Front node is : " << myList.getFrontNode() << endl;
+    //Output the front node and the list size
+    myList.getFrontNode();
     cout << "Size of the list is : " << myList.getListSize() << endl;
+    //Retrieve and delete the smalles value in the list
     myList.retrieveAndDeleteSmallest();
     myList.traverseList();
 
