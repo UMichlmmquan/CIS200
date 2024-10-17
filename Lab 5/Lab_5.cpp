@@ -117,8 +117,8 @@ int main()
 
     //Output the front node
     myList2.getFrontNode();
+    myList2.traverseList();
     
-    //
 
     system("pause");
     return 0;
