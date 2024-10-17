@@ -102,6 +102,23 @@ int main()
     myList1.getFrontNode();
     myList1.traverseList();
 
+    //Linked list with floats
+    LinkedList<float> myList2;
+
+    // Insert some elements into the linked list
+    myList2.insertFirstNode(2);
+    myList2.insertFirstNode(3);
+    myList2.insertFirstNode(9);
+    myList2.traverseList();
+
+    //Delete first node
+    myList2.deleteFirstNode();
+    myList2.traverseList();
+
+    //Output the front node
+    myList2.getFrontNode();
+    myList2.traverseList();
+
     system("pause");
     return 0;
 }
