@@ -58,6 +58,7 @@ public:
         //Empty list
         if (head == nullptr)
             return;
+        cout << "\nDelete first node" << endl;
         Node<T>* curr = head;
         head = head->next;
         delete curr;
@@ -68,9 +69,9 @@ public:
     {
         //Empty list
         if (head == nullptr)
-            cout << "Empty list" << endl;
+            cout << "\nEmpty list" << endl;
         else
-            cout << "Front node is : " << head->data << endl;
+            cout << "\nFront node is : " << head->data << endl;
     }
 
     // Display the linked list
@@ -83,9 +84,31 @@ public:
     }
 };
 
+//Address class for linked list
 class Address
 {
-    //Testing
+public:
+    //Default constructor
+    Address() : street("Unknown"), city("Unknown"), state("Unknown"), zip("00000") {}
+    //Constructor with parameters
+    Address(string street, string city, string state, string zip)
+    {
+        this->street = street;
+        this->city = city;
+        this->state = state;
+        this->zip = zip;
+    }
+    //Overload the operator << for "cout <<" in the void traverseList() function
+    friend ostream& operator<<(ostream& os, const Address& addr)
+    {
+        os << "\n" << addr.street << ", " << addr.city << ", " << addr.state << " " << addr.zip;
+        return os;
+    }
+private:
+    string street;
+    string city;
+    string state;
+    string zip;
 };
 
 int main()
@@ -104,9 +127,9 @@ int main()
     myList1.traverseList();
 
     //Output the front node
-    myList1.getFrontNode();
-    myList1.traverseList();
+    myList1.getFrontNode(); 
 
+    cout << "-----------------------------------------------" << endl;
     //Linked list with floats
     LinkedList<float> myList2;
     cout << "\nLinked list with floats" << endl;
@@ -122,7 +145,24 @@ int main()
 
     //Output the front node
     myList2.getFrontNode();
-    myList2.traverseList();
+
+    cout << "-----------------------------------------------" << endl;
+    //Linked list with address
+    LinkedList<Address> myAddress;
+    cout << "\nLinked list with addresses" << endl;
+    // Insert some elements into the linked list
+    myAddress.insertFirstNode(Address("14 South Drive","Dearborn","Michigan","10000"));
+    myAddress.insertFirstNode(Address("100 West Ave", "Ann Arbor", "Michigan", "15000"));
+    myAddress.insertFirstNode(Address("01 East Street", "Boston", "New York", "30000"));
+    myAddress.insertFirstNode(Address("1241 West Road", "Houston", "Texas", "00050"));
+    myAddress.traverseList();
+
+    //Delete first node
+    myAddress.deleteFirstNode();
+    myAddress.traverseList();
+
+    //Output the front node
+    myAddress.getFrontNode();
     
     system("pause");
     return 0;
