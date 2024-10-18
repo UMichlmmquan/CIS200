@@ -6,7 +6,7 @@ template <typename T>
 class Node
 {
 public:
-    int data;  //key
+    T data;  //key
     Node* next;
 
     // Constructor
@@ -23,7 +23,7 @@ template <typename T>
 class LinkedList
 {
 private:
-    Node* head;
+    Node<T>* head;
 
 public:
     // Constructor
@@ -35,10 +35,10 @@ public:
     // Destructor
     ~LinkedList()
     {
-        Node* cur = head;
+        Node<T>* cur = head;
         while (cur != nullptr)
         {
-            Node* next = cur->next;
+            Node<T>* next = cur->next;
             delete cur;
             cur = next;
         }
@@ -47,7 +47,7 @@ public:
     // Insert a node at the beginning of the list:
     void insertFirstNode(T value)
     {
-        Node* newNode = new Node(value);
+        Node<T>* newNode = new Node<T>(value);
         newNode->next = head;
         head = newNode;
     }
@@ -58,7 +58,7 @@ public:
         //Empty list
         if (head == nullptr)
             return;
-        Node* curr = head;
+        Node<T>* curr = head;
         head = head->next;
         delete curr;
     }
@@ -76,7 +76,7 @@ public:
     // Display the linked list
     void traverseList() {
         cout << "Linked List: ";
-        for (Node* cur = head; cur != nullptr; cur = cur->next) {
+        for (Node<T>* cur = head; cur != nullptr; cur = cur->next) {
             cout << cur->data << " ";
         }
         cout << endl;
@@ -87,7 +87,7 @@ int main()
 {
     //Linked list with integers
     LinkedList<int> myList1;
-
+    cout << "Linked list with integers" << endl;
     // Insert some elements into the linked list
     myList1.insertFirstNode(2);
     myList1.insertFirstNode(3);
@@ -104,11 +104,11 @@ int main()
 
     //Linked list with floats
     LinkedList<float> myList2;
-
+    cout << "\nLinked list with floats" << endl;
     // Insert some elements into the linked list
-    myList2.insertFirstNode(2);
-    myList2.insertFirstNode(3);
-    myList2.insertFirstNode(9);
+    myList2.insertFirstNode(2.5);
+    myList2.insertFirstNode(3.1);
+    myList2.insertFirstNode(9.2);
     myList2.traverseList();
 
     //Delete first node
