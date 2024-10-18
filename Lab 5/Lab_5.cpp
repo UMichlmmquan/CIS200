@@ -83,6 +83,11 @@ public:
     }
 };
 
+class Address
+{
+
+};
+
 int main()
 {
     //Linked list with integers
