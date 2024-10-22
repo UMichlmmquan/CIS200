@@ -67,6 +67,7 @@ int main()
     //Declare variable
     DataSet subset;
 
+    //Add nodes
     subset.insertFirstNode(4, 7.8);
     subset.insertFirstNode(3, 5.8);
     subset.insertFirstNode(2, 3.9);
