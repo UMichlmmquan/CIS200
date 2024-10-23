@@ -73,6 +73,7 @@ int main()
     subset.insertFirstNode(2, 3.9);
     subset.insertFirstNode(1, 2);
 
+    //Display the input points
     subset.traverseList();
 
     system("pause");
