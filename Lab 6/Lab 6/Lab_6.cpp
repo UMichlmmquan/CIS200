@@ -91,6 +91,12 @@ public:
             //Update the number of data points
             n++;
         }
+        //Case when user didn't input the data point
+        if (n == 0)
+        {
+            cout << "There is no input data point" << endl;
+            return;
+        }
         //Calculate the slope and intercept by applying the given formula
         slope = (n * sum_xy - sum_x * sum_y) / (n * sum_sqr_x - sum_x * sum_x);
         intercept = (sum_y - slope * sum_x) / n;
@@ -131,6 +137,12 @@ public:
             sumSqError += error * error;
             //Update the number of data points
             n++;
+        }
+        //Case when user didn't input the data point
+        if (n == 0)
+        {
+            cout << "There is no input data point" << endl;
+            return;
         }
         //Output the result
         cout <<  setprecision(6) << "RMS Error: " << sqrt(sumSqError / n) << endl;
