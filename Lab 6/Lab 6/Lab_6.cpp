@@ -95,6 +95,7 @@ public:
         if (n == 0)
         {
             cout << "There is no input data point" << endl;
+            is_Empty = true;
             return;
         }
         //Calculate the slope and intercept by applying the given formula
@@ -105,6 +106,9 @@ public:
     //Output the equation
     void displayEquation()
     {
+        //Case when user didn't input the data point
+        if (is_Empty)
+            return;
         //I set the precision to 2
         cout << fixed << setprecision(2) << "Best Fit Line: y = " << slope << " * x + " << intercept << endl;
     }
@@ -116,6 +120,9 @@ public:
     
     void displayPredict(DataSet &data)
     {
+        //Case when user didn't input the data point
+        if (is_Empty)
+            return;
         for (DataPoint* cur = data.getHead(); cur != nullptr; cur = cur->next)
         {
             cout << "Prediction for x = " << cur->x << ": " << predict(cur->x) << endl;
@@ -139,9 +146,8 @@ public:
             n++;
         }
         //Case when user didn't input the data point
-        if (n == 0)
+        if (is_Empty)
         {
-            cout << "There is no input data point" << endl;
             return;
         }
         //Output the result
@@ -151,6 +157,7 @@ public:
 private:
     double slope;
     double intercept;
+    bool is_Empty = false; //This variable is for checking the empty list
 };
 
 int main()
@@ -160,10 +167,10 @@ int main()
     LinearCurveFitter line;
 
     //Add nodes
-    subset.insertFirstNode(4, 7.8);
-    subset.insertFirstNode(3, 5.8);
-    subset.insertFirstNode(2, 3.9);
-    subset.insertFirstNode(1, 2);
+    //subset.insertFirstNode(4, 7.8);
+    //subset.insertFirstNode(3, 5.8);
+    //subset.insertFirstNode(2, 3.9);
+    //subset.insertFirstNode(1, 2);
 
     //Display the input points
     subset.traverseList();
