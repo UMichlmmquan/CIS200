@@ -167,10 +167,10 @@ int main()
     LinearCurveFitter line;
 
     //Add nodes
-    //subset.insertFirstNode(4, 7.8);
-    //subset.insertFirstNode(3, 5.8);
-    //subset.insertFirstNode(2, 3.9);
-    //subset.insertFirstNode(1, 2);
+    subset.insertFirstNode(4, 7.8);
+    subset.insertFirstNode(3, 5.8);
+    subset.insertFirstNode(2, 3.9);
+    subset.insertFirstNode(1, 2);
 
     //Display the input points
     subset.traverseList();
