@@ -5,6 +5,8 @@
 
 using namespace std;
 
+class BinarySearchTree;
+
 class AddressBook
 {
 public:
@@ -12,6 +14,10 @@ public:
     string phone;
     string email;
     string address;
+
+    void addContact(BinarySearchTree& bst);
+    void removeContact(BinarySearchTree& bst);
+    void displayContacts(BinarySearchTree bst);
 };
 
 class TreeNode {
@@ -21,12 +27,21 @@ public:
     TreeNode* right;
 
     TreeNode(AddressBook data) : data(data), left(nullptr), right(nullptr) {}
+    TreeNode(string name, string phone, string email, string address)
+    {
+        data.name = name;
+        data.phone = phone;
+        data.email = email;
+        data.address = address;
+        left = nullptr;
+        right = nullptr;
+    }
 };
 
 class BinarySearchTree {
 public:
-    void insert(AddressBook data) {
-        root = insert(root, data);
+    void insert(string name, string phone, string email, string address) {
+        root = insert(root, name, phone, email, address);
     }
 
     bool remove(string inputRemove) {
@@ -57,15 +72,15 @@ private:
     vector<int> originalNodes; // Vector to store original nodes created
     int n = 0; //Number of Contacts
 
-    TreeNode* insert(TreeNode* node, AddressBook data) {
+    TreeNode* insert(TreeNode* node, string name, string phone, string email, string address) {
         if (!node) {
             n++;
-            return new TreeNode(data);
+            return new TreeNode(name, phone, email, address);
         }
-        if (data.name < node->data.name)
-            node->left = insert(node->left, data);
-        else if (data.name > node->data.name)
-            node->right = insert(node->right, data);
+        if (name < node->data.name)
+            node->left = insert(node->left, name, phone, email, address);
+        else if (name > node->data.name)
+            node->right = insert(node->right, name, phone, email, address);
         return node;
     }
 
@@ -116,6 +131,50 @@ private:
     }
 };
 
+void AddressBook::addContact(BinarySearchTree& bst)
+{
+    cin.ignore();
+    cout << "Enter name: ";
+    getline(cin, name);
+    cout << "Enter phone number: ";
+    getline(cin, phone);
+    cout << "Enter email address: ";
+    getline(cin, email);
+    cout << "Enter home address: ";
+    getline(cin, address);
+
+    //Insert the data of AddressBook to binary search tree (BST)
+    bst.insert(name, phone, email, address);
+    cout << "Contact added successfully " << endl;
+    //Output Total number of contacts
+    cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
+    cout << "--------------------\n" << endl;
+}
+
+void AddressBook::removeContact(BinarySearchTree& bst)
+{
+    cin.ignore();
+    string inputRemove;
+    cout << "Enter name to remove:";
+    getline(cin, inputRemove);
+
+    //Remove the entire node of input name
+    if (bst.remove(inputRemove))
+    {
+        cout << "Contact removed successfully" << endl;
+        cout << endl;
+        cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
+        cout << "--------------------\n" << endl;
+    }
+    else
+        cout << inputRemove << " is not found." << endl;
+}
+
+void AddressBook::displayContacts(BinarySearchTree bst)
+{
+    bst.inOrder();
+}
+
 void displayMenu(BinarySearchTree &bst)
 {
     //Declare variables
@@ -136,45 +195,16 @@ void displayMenu(BinarySearchTree &bst)
         {
         case 1: //Add contact
         {
-            cin.ignore();
-            cout << "Enter name: ";
-            getline(cin, add.name);
-            cout << "Enter phone number: ";
-            getline(cin, add.phone);
-            cout << "Enter email address: ";
-            getline(cin, add.email);
-            cout << "Enter home address: ";
-            getline(cin, add.address);
-
-            //Insert the data of AddressBook to binary search tree (BST)
-            bst.insert(add);
-            cout << "Contact added successfully " << endl;
-            //Output Total number of contacts
-            cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
-            cout << "--------------------\n" << endl;
+            add.addContact(bst);
             break;
         }
         case 2: //Remove contact
         {
-            cin.ignore();
-            string inputRemove;
-            cout << "Enter name to remove:";
-            getline(cin, inputRemove);
-
-            //Remove the entire node of input name
-            if (bst.remove(inputRemove))
-            {
-                cout << "Contact removed successfully" << endl;
-                cout << endl;
-                cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
-                cout << "--------------------\n" << endl;
-            }
-            else
-                cout << inputRemove << " is not found." << endl;
+            add.removeContact(bst);
             break;
         }
         case 3: //Display contacts 
-            bst.inOrder();
+            add.displayContacts(bst);
             break;
         case 4:
             cout << "Exiting program" << endl;
