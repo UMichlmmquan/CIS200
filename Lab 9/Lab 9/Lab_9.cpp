@@ -44,6 +44,8 @@ public:
         cout << "\nContacts:" << endl;
         inOrderTraversal(root);
         cout << endl;
+        cout << "\nTotal number of contacts: " << numberOfContacts() << endl;
+        cout << "--------------------\n" << endl;
     }
     int numberOfContacts()
     {
@@ -149,6 +151,7 @@ void displayMenu(BinarySearchTree &bst)
             cout << "Contact added successfully " << endl;
             //Output Total number of contacts
             cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
+            cout << "--------------------\n" << endl;
             break;
         }
         case 2: //Remove contact
@@ -160,7 +163,12 @@ void displayMenu(BinarySearchTree &bst)
 
             //Remove the entire node of input name
             if (bst.remove(inputRemove))
+            {
                 cout << "Contact removed successfully" << endl;
+                cout << endl;
+                cout << "\nTotal number of contacts: " << bst.numberOfContacts() << endl;
+                cout << "--------------------\n" << endl;
+            }
             else
                 cout << inputRemove << " is not found." << endl;
             break;
